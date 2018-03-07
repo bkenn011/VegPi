@@ -1,0 +1,63 @@
+<resources>
+
+    <string name="tempformat">%d°</string>
+    <string-array name="left_display_values">
+        <item>0 - 9w</item>
+        <item>1 - 19w</item>
+        <item>2 - 33w</item>
+        <item>3 - 46w</item>
+        <item>4 - 60w</item>
+        <item>5 - 75w</item>
+        <item>6 - 89w</item>
+        <item>7 - 103w</item>
+        <item>8 - 120w</item>
+        <item>9 - 136w</item>
+        <item>10 - 150w</item>
+        <item>11 - 166w</item>
+        <item>12 - 182w</item>
+        <item>13 - 198w</item>
+        <item>14 - 210w</item>
+        <item>15 - 210+w</item>
+    </string-array>
+
+    <string-array name="right_display_values">
+        <item>0 - 11w</item>
+        <item>1 - 15w</item>
+        <item>2 - 26w</item>
+        <item>3 - 39w</item>
+        <item>4 - 52w</item>
+        <item>5 - 67w</item>
+        <item>6 - 80w</item>
+        <item>7 - 95w</item>
+        <item>8 - 110w</item>
+        <item>9 - 126w</item>
+        <item>10 - 141w</item>
+        <item>11 - 156w</item>
+        <item>12 - 172w</item>
+        <item>13 - 187w</item>
+        <item>14 - 200w</item>
+        <item>15 - 200+w</item>
+    </string-array>
+
+    <integer-array name="dim_values">
+        <item>255</item>
+        <item>238</item>
+        <item>221</item>
+        <item>204</item>
+        <item>187</item>
+        <item>170</item>
+        <item>153</item>
+        <item>136</item>
+        <item>119</item>
+        <item>102</item>
+        <item>85</item>
+        <item>68</item>
+        <item>51</item>
+        <item>34</item>
+        <item>17</item>
+        <item>0</item>
+    </integer-array>
+
+
+    <string name="app_name">VegPi</string>
+</resources>

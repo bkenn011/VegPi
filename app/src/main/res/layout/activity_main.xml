@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<data>
+    <import type="android.view.View"/>
+
+    <variable
+        name="leftViewModel"
+        type="io.yuma.vegpi.components.RemoteViewModel"/>
+    <variable
+        name="rightViewModel"
+        type="io.yuma.vegpi.components.RemoteViewModel"/>
+    <variable
+        name="lowhi"
+        type="int[]"/>
+    <variable
+        name="exhaustTemp"
+        type="String"/>
+
+</data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/plants"
+    tools:context="io.yuma.vegpi.MainActivity">
+<!--CENTRAL CONTENT-->
+    <LinearLayout
+        android:id="@+id/layout_CentralContent"
+        android:layout_margin="8dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextClock
+            android:clickable="true"
+            android:layout_gravity="center"
+            tools:text="12:09 PM"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:timeZone="America/Denver"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#E6FFFFFF"
+            android:shadowColor="#000000"
+            android:shadowRadius="5"
+            android:shadowDy="-5"/>
+
+        <ImageView
+            android:id="@+id/fan"
+            android:padding="4dp"
+            android:layout_gravity="center"
+            android:src="@drawable/fantint"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+        <LinearLayout
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+            <TextView
+                android:shadowColor="#000000"
+                android:shadowRadius="5"
+                android:shadowDy="-5"
+                android:gravity="center"
+                android:layout_gravity="center"
+                tools:text="30%"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"
+                android:text='@{String.format("%s",rightViewModel.fanSpeed)}'
+                android:fontFamily="sans-serif-medium"
+                android:textColor="#E6FFFFFF" />
+            <TextView
+                android:shadowColor="#000000"
+                android:shadowRadius="5"
+                android:shadowDy="-5"
+                android:gravity="bottom|center_horizontal"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+            android:text="@{String.format(leftViewModel.exhaustTempFormat,exhaustTemp)}"
+                tools:text="Exhaust Temp: 70.5*"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="#E6FFFFFF" />
+        </LinearLayout>
+
+        <TextView
+            android:shadowColor="#000000"
+            android:shadowRadius="5"
+            android:shadowDy="-5"
+            android:id="@+id/tv_Average"
+            android:gravity="center_horizontal"
+            android:text="Target Temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="#E6FFFFFF" />
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/seekbar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:rsb_progressHintMode="alwaysHide"
+            app:rsb_lineColorSelected="@color/colorAccent"
+            app:rsb_lineColorEdge="#FFFFFF"
+            app:rsb_cellMode="number"
+            app:rsb_reserve="1"
+            app:rsb_cells="20"
+            app:rsb_min="65"
+            app:rsb_max="85"
+            app:setViewRange="@{leftViewModel.exhaustRangeSetting}"
+            app:rsb_thumbPrimaryColor="@android:color/holo_red_light"
+            app:rsb_thumbSecondaryColor="@android:color/holo_red_light"
+            app:rsb_thumbSize="12dp"
+            app:rsb_seekBarHeight="4dp"
+            app:rsb_seekBarMode="range"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_HiLo"
+            android:gravity="center"
+            android:layout_gravity="center"
+            tools:text="HiLo"
+            android:text="@{leftViewModel.highLowSettings}"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#E6FFFFFF" />
+
+        <LinearLayout
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+            <TextView
+                android:shadowColor="#000000"
+                android:shadowRadius="5"
+                android:shadowDy="-5"
+                android:id="@+id/tv_Lower"
+                android:gravity="start|top"
+                tools:text="68°"
+                android:text="@{String.format(@string/tempformat,leftViewModel.exhaustRangeSetting[0])}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="#E6FFFFFF" />
+            <TextView
+                android:shadowColor="#000000"
+                android:shadowRadius="5"
+                android:shadowDy="-5"
+                android:id="@+id/tv_Higher"
+                android:gravity="end|top"
+                tools:text="78°"
+                android:text="@{String.format(@string/tempformat,leftViewModel.exhaustRangeSetting[1])}"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="#E6FFFFFF" />
+        </LinearLayout>
+
+        <io.yuma.vegpi.components.TimerTextView
+            android:shadowColor="#000000"
+            android:shadowRadius="5"
+            android:shadowDy="-5"
+            android:id="@+id/tv_Uptime"
+            android:gravity="bottom"
+            android:layout_gravity="center"
+            tools:text="Uptime: 00 : 20 : 15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="#E6FFFFFF" />
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_alignParentStart="true"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="#E6FFFFFF"
+        android:layout_width="200dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="1000x200"
+                android:singleLine="true"
+                android:selectAllOnFocus="true"
+                android:inputType="textCapWords"
+                android:fontFamily="sans-serif-medium"
+                android:imeOptions="flagNoExtractUi|actionDone"
+                android:text="@{leftViewModel.title}"
+                android:layout_margin="4dp"/>
+
+
+
+            <com.jaygoo.widget.RangeSeekBar
+                android:id="@+id/seekbarLowHighLeft"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rsb_progressHintMode="alwaysHide"
+                app:rsb_lineColorSelected="@android:color/black"
+                app:rsb_lineColorEdge="#000000"
+                app:rsb_thumbPrimaryColor="@android:color/holo_red_light"
+                app:rsb_thumbSecondaryColor="@android:color/holo_red_light"
+                app:rsb_cellMode="number"
+                app:rsb_reserve="0"
+                app:rsb_cells="15"
+                app:rsb_min="0"
+                app:rsb_max="14"
+                app:rsb_thumbSize="14dp"
+                app:rsb_seekBarHeight="4dp"
+                app:rsb_seekBarMode="range"
+                />
+
+            <TextView
+                android:id="@+id/tv_LightsLeft"
+                android:gravity="center_horizontal"
+                tools:text="100w - 500w"
+                android:text="@{leftViewModel.lightWattageSetting}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="#555555" />
+
+            <TextView android:layout_width="match_parent"
+                android:id="@+id/tvAvgTemp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|bottom"
+                android:textColor="#555555"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
+                tools:text="68* | 14% RH"
+                android:text="@{String.format(leftViewModel.tempFormat,leftViewModel.averageTemperature,leftViewModel.humidity)}"
+                android:layout_margin="4dp"/>
+
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:id="@+id/graph1" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_alignParentEnd="true"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="#E6FFFFFF"
+        android:layout_width="200dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="1000x200"
+                android:singleLine="true"
+                android:selectAllOnFocus="true"
+                android:inputType="textCapWords"
+                android:fontFamily="sans-serif-medium"
+                android:imeOptions="flagNoExtractUi|actionDone"
+                android:text="@{rightViewModel.title}"
+                android:layout_margin="4dp"/>
+
+
+            <com.jaygoo.widget.RangeSeekBar
+                android:id="@+id/seekbarLowHighRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rsb_progressHintMode="alwaysHide"
+                app:rsb_lineColorSelected="@android:color/black"
+                app:rsb_lineColorEdge="#000000"
+                app:rsb_thumbPrimaryColor="@android:color/holo_red_light"
+                app:rsb_thumbSecondaryColor="@android:color/holo_red_light"
+                app:rsb_cellMode="number"
+                app:rsb_reserve="0"
+                app:rsb_cells="15"
+                app:rsb_min="0"
+                app:rsb_max="14"
+                app:rsb_thumbSize="14dp"
+                app:rsb_seekBarHeight="4dp"
+                app:rsb_seekBarMode="range"
+                />
+
+            <TextView
+                android:id="@+id/tv_LightsRight"
+                android:text="@{rightViewModel.lightWattageSetting}"
+                android:gravity="center_horizontal"
+                tools:text="100w - 500w"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="#555555" />
+
+            <TextView android:layout_width="match_parent"
+                android:id="@+id/tvAvgTemp2"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|bottom"
+                android:textColor="#555555"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
+                tools:text="68* | 14% RH"
+                android:text="@{String.format(leftViewModel.tempFormat,rightViewModel.averageTemperature,rightViewModel.humidity)}"
+                android:layout_margin="4dp"/>
+
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:id="@+id/graph2" />
+
+
+        </LinearLayout>
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout>
+</layout>
